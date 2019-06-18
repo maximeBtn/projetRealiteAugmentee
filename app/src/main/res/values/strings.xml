@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProjetRA</string>
+    <string name="scanQRcode">Scannez vos articles !</string>
+</resources>
