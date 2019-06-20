@@ -33,11 +33,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         message = findViewById(R.id.text1);
         mCameraView = findViewById(R.id.camera_preview);
         mBoutonPanier = findViewById(R.id.btn_panier);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         mScannerView = new ZXingScannerView(getApplicationContext());
         mCameraView.addView(mScannerView);
 
@@ -65,11 +61,4 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         AlertDialog alert1 = builder.create();
         alert1.show();
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mScannerView.stopCamera();
-    }
-
 }
