@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import fr.ecl.maxime.bouton.projetra.R;
 import fr.ecl.maxime.bouton.projetra.classes.Article;
@@ -16,30 +15,31 @@ import fr.ecl.maxime.bouton.projetra.utils.ArticleAdapter;
 
 public class PanierActivity extends AppCompatActivity {
 
-    Panier monPanier;
-    RecyclerView mRecyclerView;
-    TextView txt_prixTotal;
+    private RecyclerView mRecyclerView;
+    private ArticleAdapter mArticleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_panier);
 
-        monPanier= new Panier();
-        monPanier.ajouterArticle(new Article("nouille", 1));
-        monPanier.ajouterArticle(new Article("riz", 2));
-        monPanier.ajouterArticle(new Article("poisson", 5));
-        monPanier.ajouterArticle(new Article("viande", 8));
-
         mRecyclerView= findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArticleAdapter itemAdapter = new ArticleAdapter(monPanier);
-        mRecyclerView.setAdapter(itemAdapter);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        mArticleAdapter = new ArticleAdapter(Panier.mListeArticle, new ArticleAdapter.OnClickListener() {
+            @Override
+            public void onTextClicked(Article article) {
 
-        txt_prixTotal=findViewById(R.id.txt_affichage_prix);
-        txt_prixTotal.setText(Double.toString(monPanier.getPrixTotal()));
+            }
+
+            @Override
+            public void onButtonClicked(Article article) {
+                Panier.mListeArticle.remove(article);
+                mArticleAdapter.notifyDataSetChanged();
+            }
+        });
+        mRecyclerView.setAdapter(mArticleAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
     }
 
 }

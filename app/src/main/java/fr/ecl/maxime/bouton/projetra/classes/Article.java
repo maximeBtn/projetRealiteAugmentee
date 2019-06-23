@@ -1,40 +1,56 @@
 package fr.ecl.maxime.bouton.projetra.classes;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Created by Max on 2019-06-15.
+ * Created by Max on 2019-06-23.
  */
 public class Article {
 
-    private String mNom;
-    private double mPrix;
-    private String mDescription;
+    @SerializedName("product")
+    @Expose
+    private Produit product;
+    @SerializedName("code")
+    @Expose
+    private String code;
+    @SerializedName("status_verbose")
+    @Expose
+    private String statusVerbose;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
 
-    public Article(String nom, double prix) {
-        mNom = nom;
-        mPrix = prix;
+    public Produit getProduct() {
+        return product;
     }
 
-    public String getNom() {
-        return mNom;
+    public void setProduct(Produit product) {
+        this.product = product;
     }
 
-    public void setNom(String nom) {
-        mNom = nom;
+    public String getCode() {
+        return code;
     }
 
-    public double getPrix() {
-        return mPrix;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setPrix(double prix) {
-        mPrix = prix;
+    public String getStatusVerbose() {
+        return statusVerbose;
     }
 
-    public String getDescription() {
-        return mDescription;
+    public void setStatusVerbose(String statusVerbose) {
+        this.statusVerbose = statusVerbose;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
+    public Integer getStatus() {
+        return status;
     }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
 }
