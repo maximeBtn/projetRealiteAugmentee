@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -17,6 +18,7 @@ public class PanierActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ArticleAdapter mArticleAdapter;
+    public static final String POSITION = "position";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,9 @@ public class PanierActivity extends AppCompatActivity {
         mArticleAdapter = new ArticleAdapter(Panier.mListeArticle, new ArticleAdapter.OnClickListener() {
             @Override
             public void onTextClicked(Article article) {
-
+                Intent i = new Intent(PanierActivity.this, DetailsActivity.class);
+                i.putExtra(POSITION, Panier.mListeArticle.indexOf(article));
+                startActivity(i);
             }
 
             @Override

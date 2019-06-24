@@ -58,6 +58,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
             public void onClick(View v) {
                 Intent i = new Intent(ScanActivity.this, PanierActivity.class);
                 startActivity(i);
+                mScannerView.stopCamera();
             }
         });
 
