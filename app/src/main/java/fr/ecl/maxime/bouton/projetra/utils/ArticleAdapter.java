@@ -17,11 +17,14 @@ import fr.ecl.maxime.bouton.projetra.classes.Article;
 /**
  * Created by Max on 2019-06-15.
  */
+
+//Adapter du recyclerview de PanierActivity
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ItemViewHolder> {
 
     private final ArrayList<Article> mArticles;
     private final OnClickListener mListener;
 
+    //Interface de click selon se la vue cliquée (bouton suppression ou nom article)
     public interface OnClickListener{
 
         void onTextClicked(Article article);

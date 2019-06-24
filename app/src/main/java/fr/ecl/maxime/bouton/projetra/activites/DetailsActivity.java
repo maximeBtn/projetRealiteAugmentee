@@ -10,6 +10,8 @@ import fr.ecl.maxime.bouton.projetra.R;
 import fr.ecl.maxime.bouton.projetra.classes.Article;
 import fr.ecl.maxime.bouton.projetra.classes.Panier;
 
+
+//Activité liée à l'affichage des informations d'un article du panier
 public class DetailsActivity extends AppCompatActivity {
 
     private TextView txt_nom, txt_ingredients, txt_origine, txt_label, txt_indice, txt_quantite, txt_marque, txt_categories;
@@ -28,15 +30,18 @@ public class DetailsActivity extends AppCompatActivity {
         txt_marque = findViewById(R.id.marque);
         txt_categories = findViewById(R.id.categories);
 
+
+        //Récupération de l'indice de l'article sélectionné dans le panier
         Intent i = getIntent();
         int n = i.getIntExtra(PanierActivity.POSITION, 0);
 
+        //Association des données de l'article correspondant aux différents critères
         Article article = Panier.mListeArticle.get(n);
         txt_nom.setText(article.getProduct().getProductName());
         txt_ingredients.setText(article.getProduct().getIngredientsText());
         txt_origine.setText(article.getProduct().getOrigins());
         txt_label.setText(article.getProduct().getLabels());
-        txt_indice.setText(article.getProduct().getNutritionGrades().toUpperCase());
+        txt_indice.setText((article.getProduct().getNutritionGrades()!=null) ? article.getProduct().getNutritionGrades().toUpperCase():"");
         txt_quantite.setText(article.getProduct().getQuantity());
         txt_marque.setText(article.getProduct().getBrands());
         txt_categories.setText(article.getProduct().getCategories());

@@ -48,11 +48,13 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
+        // Initialisation du panier au lancement de l'application comme une liste vide d'articles
         Panier.mListeArticle = new ArrayList<>(0);
         message = findViewById(R.id.text1);
         mCameraView = findViewById(R.id.camera_preview);
         mBoutonPanier = findViewById(R.id.btn_panier);
 
+        // Si on clique sur le bouton panier, on passe à l'activité PanierActivity
         mBoutonPanier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +64,8 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
             }
         });
 
+
+        //Permission d'accès à la caméra
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
 
     }
@@ -69,6 +73,8 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     protected void onStart() {
         super.onStart();
+
+        //On recrée un scanner en cas de retour sur l'activité de Scan
         mScannerView = new ZXingScannerView(getApplicationContext());
         mCameraView.addView(mScannerView);
 
@@ -86,6 +92,8 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     public void handleResult(Result result) {
         Toast.makeText(this, "Article ajouté", Toast.LENGTH_SHORT).show();
         ajouterArticleAuPanier(result.getText());
+
+        //Ce Handler permet de dégeler la caméra au bout de 3 secondes après le scan d'un article, pour ne pas faire de doublon
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -142,6 +150,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         call.enqueue(new Callback<Article>() {
             @Override
             public void onResponse(Call<Article> call, Response<Article> response) {
+                // On ajoute un nouvel article au panier à partir de la requête http
                 Log.i("TAG", response.body().toString());
                 Panier.mListeArticle.add(response.body());
             }

@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Max on 2019-06-23.
  */
+
+//Création de l'objet Article à partir du JSON de la requête http
 public class Article {
 
     @SerializedName("product")

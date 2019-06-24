@@ -14,6 +14,8 @@ import fr.ecl.maxime.bouton.projetra.classes.Article;
 import fr.ecl.maxime.bouton.projetra.classes.Panier;
 import fr.ecl.maxime.bouton.projetra.utils.ArticleAdapter;
 
+
+//Gère l'affichage de tous les articles scannés, avec possibilité de les supprimer
 public class PanierActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -31,6 +33,7 @@ public class PanierActivity extends AppCompatActivity {
         mArticleAdapter = new ArticleAdapter(Panier.mListeArticle, new ArticleAdapter.OnClickListener() {
             @Override
             public void onTextClicked(Article article) {
+                // On passe la main à la DetailsActivity si on clique sur le nom de l'article
                 Intent i = new Intent(PanierActivity.this, DetailsActivity.class);
                 i.putExtra(POSITION, Panier.mListeArticle.indexOf(article));
                 startActivity(i);
@@ -38,6 +41,7 @@ public class PanierActivity extends AppCompatActivity {
 
             @Override
             public void onButtonClicked(Article article) {
+                // On retire l'article de la liste si on clique sur le bouton suppression associé
                 Panier.mListeArticle.remove(article);
                 mArticleAdapter.notifyDataSetChanged();
             }

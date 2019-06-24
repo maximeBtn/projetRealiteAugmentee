@@ -7,6 +7,7 @@ package fr.ecl.maxime.bouton.projetra.classes;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class Produit {
 
     @SerializedName("product_name")

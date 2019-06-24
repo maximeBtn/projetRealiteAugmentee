@@ -7,6 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Max on 2019-06-23.
  */
+
+//Instanciation de Retrofit
 public class ServiceFactory {
 
     public static Retrofit retrofit = new Retrofit.Builder()
