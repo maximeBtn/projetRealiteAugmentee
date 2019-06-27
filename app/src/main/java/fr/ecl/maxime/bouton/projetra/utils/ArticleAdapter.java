@@ -56,6 +56,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ItemView
         return mArticles.size();
     }
 
+
+    public Article getArticleFromName(String name){
+        for (Article a : mArticles){
+            if (a.getProduct().getProductName().equalsIgnoreCase(name)){
+                return a;
+            }
+        }
+        return null;
+    }
+
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView txt_nom;
