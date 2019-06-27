@@ -32,15 +32,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, OnDSListener, OnDSPermissionsListener {
+public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
     public static final String BASE_URL = "https://fr.openfoodfacts.org/api/v0/produit/";
     private ZXingScannerView mScannerView;
     private FrameLayout mCameraView;
     private TextView message;
     private ImageButton mBoutonPanier;
-    private DroidSpeech mDroidSpeech;
-    private long lastTimeWorking;
     private Call<Article> call;
 
     @Override
@@ -80,12 +78,6 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
-
-        mDroidSpeech = new DroidSpeech(getApplicationContext(),null);
-        mDroidSpeech.setOnDroidSpeechListener(this);
-        mDroidSpeech.setShowRecognitionProgressView(false);
-        mDroidSpeech.startDroidSpeechRecognition();
-
     }
 
     @Override
@@ -102,47 +94,6 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         }, 3000);
     }
 
-    @Override
-    public void onDroidSpeechSupportedLanguages(String currentSpeechLanguage, List<String> supportedSpeechLanguages) {
-        if(supportedSpeechLanguages.contains("fr-FR"))
-        {
-            mDroidSpeech.setPreferredLanguage("fr-FR");
-        }
-    }
-
-    @Override
-    public void onDroidSpeechRmsChanged(float rmsChangedValue) {
-        lastTimeWorking = System.currentTimeMillis();
-    }
-
-    @Override
-    public void onDroidSpeechLiveResult(String liveSpeechResult) {
-
-    }
-
-    @Override
-    public void onDroidSpeechFinalResult(String finalSpeechResult) {
-        if (finalSpeechResult.equalsIgnoreCase("Panier") || finalSpeechResult.toLowerCase().contains("panier")) {
-            Intent i = new Intent(ScanActivity.this, PanierActivity.class);
-            startActivity(i);
-            mDroidSpeech.closeDroidSpeechOperations();
-        }
-    }
-
-    @Override
-    public void onDroidSpeechClosedByUser() {
-        mDroidSpeech.closeDroidSpeechOperations();
-    }
-
-    @Override
-    public void onDroidSpeechError(String errorMsg) {
-
-    }
-
-    @Override
-    public void onDroidSpeechAudioPermissionStatus(boolean audioPermissionGiven, String errorMsgIfAny) {
-
-    }
 
     private void ajouterArticleAuPanier(String CodeBarre){
         Services services = ServiceFactory.createService(Services.class);
